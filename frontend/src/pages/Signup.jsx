@@ -5,6 +5,7 @@ import Heading from "../components/Heading";
 import InputBox from "../components/InputTextBox";
 import SubHeading from "../components/SubHeading";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,6 +16,7 @@ const Signup = () => {
     const[lastName, setLastName] = useState("");
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
+    const navigate = useNavigate()
 
     return <div className="bg-slate-300 h-screen flex justify-center items-center">
         <div className="bg-white rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
@@ -47,7 +49,9 @@ const Signup = () => {
                 firstName,
                 lastName
             });
-            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("token", response.data.token);
+            localStorage.delete("token");
+            navigate("/dashboard");
         }}
         label={'Sign Up'}></Button>
         <BottomWarning label={'Already have an account?'} buttonText={'Login'} to={'/signin'}/>
